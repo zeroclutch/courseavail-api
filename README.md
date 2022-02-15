@@ -4,6 +4,7 @@ How to use this in your project:
 
 1. Include the `dist/` directory in your project.
 2. `require()` or `import` the `courseAvail.js` file.
+3. Install axios with `npm i axios`
 
 ### Example Usage
 
