@@ -21,4 +21,4 @@ client.search('math 12', 'Spring 2022')
 
 ```
 
-See all the properties in the source.
+See all the properties in [the source](https://github.com/zeroclutch/courseavail-api/blob/d1ca6a290a2d127bd3ecdc210b38b7383158f536/src/courseAvail.ts#L76).
