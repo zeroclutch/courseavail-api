@@ -31,13 +31,10 @@ export class Client {
     }
     search(query, quarter, underGrad = true, maxResults = 300) {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            console.log(query);
             const body = `q=${query.split(' ').join('+')}&maxRes=${maxResults}`;
-            console.log(body);
             let quarterUrlComponent = this.resolveQuarter(quarter);
             let gradUrlComponent = underGrad ? 'ugrad' : 'grad';
             const URL = `${BASE_URL}/${quarterUrlComponent}/${gradUrlComponent}`;
-            console.log(URL);
             let response = yield fetch(URL, {
                 body,
                 method: 'POST',
