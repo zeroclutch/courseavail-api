@@ -1,6 +1,6 @@
 {
   "name": "courseavail-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An API for SCUs CourseAvail application",
   "main": "dist/courseAvail.js",
   "module": "dist/courseAvail.js",
