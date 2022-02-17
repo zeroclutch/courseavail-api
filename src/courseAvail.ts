@@ -1,4 +1,4 @@
-import axios from 'axios'
+import fetch from 'node-fetch'
 
 export enum Quarters {
     'Summer' = 60,
@@ -26,6 +26,11 @@ export interface Pathway {
     label: string;
 }
 
+export interface SearchResult {
+    results: [];
+    name: string;
+}
+
 export const BASE_URL = 'https://www.scu.edu/apps/ws/courseavail/search'
 
 export class Client {
@@ -47,21 +52,23 @@ export class Client {
     search(query: string, quarter: string, underGrad: Boolean = true, maxResults: number = 300) {
         return new Promise(async (resolve, reject) => {
             const body = `q=${query.split(' ').join('+')}&maxRes=${maxResults}`
-            
+
             let quarterUrlComponent = this.resolveQuarter(quarter)
             let gradUrlComponent    = underGrad ? 'ugrad' : 'grad'
-            
-            let response = await axios.post(`${BASE_URL}/${quarterUrlComponent}/${gradUrlComponent}`, {
+            const URL = `${BASE_URL}/${quarterUrlComponent}/${gradUrlComponent}`
+
+            let response = await fetch(URL, {
                 body,
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).catch(reject)
 
             if(response) {
-                let json = response.data
+                let json: any = await response.json().catch(reject)
                 
-                if(json.results) {
+                if(json?.results) {
                     json.results = json.results.map((course: Object) => new Course(course))
                     resolve(json.results)
                 } else {

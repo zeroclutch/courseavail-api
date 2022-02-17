@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "description": "An API for SCUs CourseAvail application",
   "main": "dist/courseAvail.js",
+  "module": "dist/courseAvail.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npx tsc ./src/courseAvail.ts --outDir ./dist/ -t es2015 --moduleResolution Node",
     "test": "node test/test.js"
   },
   "author": "zero",
   "license": "MIT",
-  "dependencies": {
-    "axios": "^0.26.0"
-  },
   "devDependencies": {
+    "@types/node": "^17.0.18",
     "typescript": "^4.5.5"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.2.0"
+  }
 }

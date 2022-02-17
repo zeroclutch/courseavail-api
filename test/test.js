@@ -12,5 +12,8 @@ client.search('math 12', 'Spring 2022')
 .then(results => {
     console.log(results[0])
     assert.strictEqual(results[0].strm_descr, 'Spring 2022')
-    assert.strictEqual(results[0].instructor, 'Donohoe, Wendy')
+    assert.strictEqual(results[0].subject, 'MATH')
+    assert.strictEqual(results[0].catalog_nbr, '12')
 })
+
+console.log('All test cases passed.')

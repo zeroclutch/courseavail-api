@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import axios from 'axios';
+import fetch from 'node-fetch';
 export var Quarters;
 (function (Quarters) {
     Quarters[Quarters["Summer"] = 60] = "Summer";
@@ -31,18 +31,23 @@ export class Client {
     }
     search(query, quarter, underGrad = true, maxResults = 300) {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            console.log(query);
             const body = `q=${query.split(' ').join('+')}&maxRes=${maxResults}`;
+            console.log(body);
             let quarterUrlComponent = this.resolveQuarter(quarter);
             let gradUrlComponent = underGrad ? 'ugrad' : 'grad';
-            let response = yield axios.post(`${BASE_URL}/${quarterUrlComponent}/${gradUrlComponent}`, {
+            const URL = `${BASE_URL}/${quarterUrlComponent}/${gradUrlComponent}`;
+            console.log(URL);
+            let response = yield fetch(URL, {
                 body,
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).catch(reject);
             if (response) {
-                let json = response.data;
-                if (json.results) {
+                let json = yield response.json().catch(reject);
+                if (json === null || json === void 0 ? void 0 : json.results) {
                     json.results = json.results.map((course) => new Course(course));
                     resolve(json.results);
                 }
